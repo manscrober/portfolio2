@@ -1,5 +1,6 @@
 public class Exams {
     Exam[] exams=new Exam[10];
+    boolean full = false;
 
     public static void main(String[] args) {
         Exams exams = new Exams();
@@ -28,16 +29,18 @@ public class Exams {
         }
     }
     public void addExam(Exam exam){
-        boolean added=false;
-        boolean full=true;
-        for(int i=0;i<exams.length&&!added;i++){
-            if(exams[i]==null){
-                exams[i]=exam;
-                added=true;
-                full=false;
+        if(!full) {
+            boolean added = false;
+            for (int i = 0; i < exams.length && !added; i++) {
+                if (exams[i] == null) {
+                    exams[i] = exam;
+                    added = true;
+                }
             }
-        }
-        if(full){
+            if (!added) {
+                full=true;
+            }
+        }else{
             System.out.println("Es können keine weiteren Prüfungsergebnisse erfasst werden!");
         }
     }

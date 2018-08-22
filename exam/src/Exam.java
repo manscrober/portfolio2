@@ -12,7 +12,6 @@ public class Exam {
     }
 
     public float meanGrade(){
-
         return sumOfArray(grades)/nonNullElementCount(grades);
     }
     public float bestGrade(){
@@ -71,7 +70,8 @@ public class Exam {
     private String[] removeNullStrings(String[] strings){
         String[] nonNullStrings=new String[nonNullElementCount(strings)];
         int elementsAdded=0;
-        for(int i=0;i<strings.length&&nonNullStrings!=null;i++){
+        int i=0;
+        while(i<strings.length&&nonNullStrings!=null){
             if(strings[i]!=null){
                 if(elementsAdded<nonNullStrings.length&&nonNullStrings!=null) {
                     nonNullStrings[elementsAdded] = strings[i];
@@ -81,20 +81,16 @@ public class Exam {
                 }
 
             }
+            i++;
         }
         return nonNullStrings;
     }
     public void bestStudents(){
         float bestgrade=bestGrade();
-        String[] bestStudents=new String[students.length];
         for(int i=0;i<grades.length;i++){
             if(grades[i]==bestgrade){
-                bestStudents[i]=students[i];
+                System.out.print(students[i] +" ");
             }
-        }
-        bestStudents=removeNullStrings(bestStudents);
-        for(String student:bestStudents){
-            System.out.print(student +" ");
         }
         System.out.println();
     }
@@ -131,33 +127,33 @@ public class Exam {
             if(grades[i]==grade){
                 studentsWithGrade[i]=students[i];
             }
+            i++;
         }
         studentsWithGrade=removeNullStrings(studentsWithGrade);
         return studentsWithGrade;
     }
     public void addStudent(String name) {
         boolean full = true;
-        for (int i = 0; i < students.length && full == true; i++) {
+        for (int i = 0; i < students.length && full; i++) {
             if (students[i] == null) {
                 full = false;
                 students[i] = name;
             }
         }
-        if (full == true) {
+        if (full) {
             System.out.println("Keine weiteren Prüfungsplätze vorhanden");
         }
     }
 
     public void setStudentGrade(String name, float grade){
         boolean set = false;
-        for(int i=0;i<students.length&&set==false;i++){
+        for(int i=0;i<students.length&&!set;i++){
                 if (students[i]!=null&&students[i].equals(name)) {
                     grades[i] = grade;
                     set = true;
                 }
-
         }
-        if(set==false){
+        if(!set){
             System.out.println("Kein Student mit diesem Namen gefunden");
         }
     }
@@ -168,14 +164,15 @@ public class Exam {
         return examNumber;
     }
 
-
-
-    public void printStudents(){
-        for(String i:students){
-            System.out.println(i);
-        }
-    }
     public void setExamNumber(int examNumber) {
         this.examNumber = examNumber;
+    }
+
+    public void printStudents(){
+        for(String student:students){
+            if(student!=null){
+                System.out.println(student);
+            }
+        }
     }
 }
