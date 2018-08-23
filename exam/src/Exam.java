@@ -3,21 +3,21 @@ import java.util.Arrays;
 public class Exam {
     private int examNumber;
     private String[] students;
-    private float[] grades;
+    private double[] grades;
 
     public Exam(int examNumber, int studentCount) {
         this.examNumber = examNumber;
         this.students = new String[studentCount];
-        this.grades=new float[students.length];
+        this.grades=new double[students.length];
     }
 
-    public float meanGrade(){
-        return sumOfArray(grades)/nonNullElementCount(grades);
+    public double meanGrade(){
+        return sumOfArray(grades)/nonZeroElementCount(grades);
     }
-    public float bestGrade(){
-        float bestGrade = 5.0f;
-        float[] gradesWithoutNulls=removeNullFloats(grades);
-        for(float grade:gradesWithoutNulls){
+    public double bestGrade(){
+        double bestGrade = 5.0f;
+        double[] gradesWithoutNulls=removeZerodoubles(grades);
+        for(double grade:gradesWithoutNulls){
             if(Double.compare(grade,bestGrade)==-1){
                 bestGrade=grade;
             }
@@ -25,8 +25,8 @@ public class Exam {
         return bestGrade;
     }
 
-    private float sumOfArray(float[] arr){
-        float sum=0;
+    private double sumOfArray(double[] arr){
+        double sum=0;
         for(int i=0;i<arr.length;i++){
             sum+=arr[i];
         }
@@ -42,30 +42,30 @@ public class Exam {
         }
         return count;
     }
-    private int nonNullElementCount(float[] arr){
+    private int nonZeroElementCount(double[] arr){
         int count=0;
-        for(float element:arr){
+        for(double element:arr){
             if(element!=0){
                 count++;
             }
         }
         return count;
     }
-    private float[] removeNullFloats(float[] floats){
-        float[] nonNullFloats=new float[nonNullElementCount(floats)];
+    private double[] removeZerodoubles(double[] doubles){
+        double[] nonZerodoubles=new double[nonZeroElementCount(doubles)];
         int elementsAdded=0;
-        for(int i=0;i<floats.length&&nonNullFloats!=null;i++){
-            if(floats[i]!=0){
-                if(elementsAdded<nonNullFloats.length&&nonNullFloats!=null) {
-                    nonNullFloats[elementsAdded] = floats[i];
+        for(int i=0;i<doubles.length&&nonZerodoubles!=null;i++){
+            if(doubles[i]!=0){
+                if(elementsAdded<nonZerodoubles.length&&nonZerodoubles!=null) {
+                    nonZerodoubles[elementsAdded] = doubles[i];
                     elementsAdded++;
                 }else{
-                    nonNullFloats=null;
+                    nonZerodoubles=null;
                 }
 
             }
         }
-        return nonNullFloats;
+        return nonZerodoubles;
     }
     private String[] removeNullStrings(String[] strings){
         String[] nonNullStrings=new String[nonNullElementCount(strings)];
@@ -86,7 +86,7 @@ public class Exam {
         return nonNullStrings;
     }
     public void bestStudents(){
-        float bestgrade=bestGrade();
+        double bestgrade=bestGrade();
         for(int i=0;i<grades.length;i++){
             if(grades[i]==bestgrade){
                 System.out.print(students[i] +" ");
@@ -101,7 +101,7 @@ public class Exam {
             }
         }
     }
-    private String convertToGradeLevelString(float grade){
+    private String convertToGradeLevelString(double grade){
         String gradeLevel=null;
         if(Double.compare(grade,0)==0.0f) {
             gradeLevel="keine Note";
@@ -119,7 +119,7 @@ public class Exam {
 
         return gradeLevel;
     }
-    public String[] studentsWithGrade(float grade){
+    public String[] studentsWithGrade(double grade){
         boolean comparedToAllGrades=false;
         String[] studentsWithGrade=new String[students.length];
         int i=0;
@@ -145,7 +145,7 @@ public class Exam {
         }
     }
 
-    public void setStudentGrade(String name, float grade){
+    public void setStudentGrade(String name, double grade){
         boolean set = false;
         for(int i=0;i<students.length&&!set;i++){
                 if (students[i]!=null&&students[i].equals(name)) {
